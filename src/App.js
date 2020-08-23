@@ -20,17 +20,8 @@ const tttLiveClients = [];
 const tttQueue = [];
 
 //Socket setup
-const io = socket(server, {
-  handlePreflightRequest: (req, res) => {
-    const headers = {
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-      "Access-Control-Allow-Credentials": true
-    };
-    res.writeHead(200, headers);
-    res.end();
-  }
-});
+const io = socket(server);
+io.set('origins', '*:*');
 
 io.on("connection", socket => {
   allClients.push(socket);
