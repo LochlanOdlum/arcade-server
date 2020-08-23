@@ -1,9 +1,12 @@
 const PORT = process.env.PORT || 3005;
 const express = require("express");
 const socket = require("socket.io");
+const cors = require('cors');
 
 //App setup
 const app = express();
+app.use(cors());
+
 const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3000");
 });
