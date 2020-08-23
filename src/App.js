@@ -1,7 +1,7 @@
 const PORT = 3005;
 const express = require("express");
 const socket = require("socket.io");
-const cors = require('cors');
+// const cors = require('cors');
 
 //App setup
 const app = express();
@@ -12,7 +12,7 @@ const app = express();
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 
-app.use(cors());
+// app.use(cors());
 
 const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3005");
@@ -28,6 +28,8 @@ const tttQueue = [];
 
 //Socket setup
 const io = socket(server);
+
+io.origins('*:*');
 
 io.on("connection", socket => {
   allClients.push(socket);
