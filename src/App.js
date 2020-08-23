@@ -20,7 +20,7 @@ const tttLiveClients = [];
 const tttQueue = [];
 
 //Socket setup
-const io = socket(server);
+const io = socket(server, { origins: '*:*'});
 
 io.on("connection", socket => {
   allClients.push(socket);
