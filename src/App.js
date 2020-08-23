@@ -1,9 +1,10 @@
+const PORT = process.env.PORT || 3005;
 const express = require("express");
 const socket = require("socket.io");
 
 //App setup
 const app = express();
-const server = app.listen(3000, () => {
+const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3000");
 });
 
