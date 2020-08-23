@@ -2,9 +2,9 @@
   "name": "game-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/App.js",
   "scripts": {
-    "start": "./src/App.js",
+    "start": "node ./src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
