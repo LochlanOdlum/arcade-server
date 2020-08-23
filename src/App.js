@@ -1,9 +1,18 @@
 const PORT = 3005;
 const express = require("express");
 const socket = require("socket.io");
+const cors = require('cors');
 
 //App setup
 const app = express();
+
+//Pass as argument to cors
+// let corsOptions = {
+//   origin: 'http://example.com',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+
+app.use(cors());
 
 const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3005");
