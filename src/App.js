@@ -13,6 +13,9 @@ const app = express();
 // }
 
 // app.use(cors());
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3005");
