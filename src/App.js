@@ -12,6 +12,7 @@ const app = express();
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
 
+
 const server = app.listen(PORT, () => {
   console.log("Listening to requests on port 3005");
 });
@@ -19,7 +20,7 @@ const server = app.listen(PORT, () => {
 
 const allClients = [];
 //TTT players in queue and in live players have socket prop.
-// and 'player' prop. with name, id, value (o or x)
+// and 'player' prop. with name, id, value (o or x) and score.
 
 const tttLiveClients = [];
 const tttQueue = [];
@@ -41,11 +42,17 @@ io.on("connection", socket => {
     TTTTryStartGame();
   });
 
-  socket.on('take-turn', ({playerSelf, playerOther, coords}) => {
+  socket.on('ttt-take-turn', ({playerSelf, playerOther, coords}) => {
 
     takeTurn(playerSelf, playerOther, coords);
   });
 
+  socket.on('ttt-play-again', ({playerOther}) => {
+    const playerOtherClient = tttLiveClients.find(
+      client => client.player.id === playerOther.id
+    );
+    playerOtherClient.socket.emit('ttt-playing-again');
+  });
 
 
   socket.on("disconnect", () => {
@@ -67,7 +74,7 @@ io.on("connection", socket => {
 const TTTTryStartGame = () => {
   //If no other players in queue, wait till another player joins.
   if (tttQueue.length < 2) {
-    console.log(`Joined queue: ${tttQueue[0].player.name} `);
+    console.log(`TTT Joined queue: ${tttQueue[0].player.name} `);
     return;
   }
   //Pair of players formed below
@@ -90,7 +97,7 @@ const TTTTryStartGame = () => {
   // }
 
   for (const client of clients) {
-    client.socket.emit('match-found', playersData)
+    client.socket.emit('ttt-match-found', playersData)
   }
 };
 
@@ -98,5 +105,5 @@ const TTTTryStartGame = () => {
 const takeTurn = (playerSelf, playerOther, coords) => {
   const playerOtherClient = tttLiveClients.find((client) => client.player.id === playerOther.id);
 
-  playerOtherClient.socket.emit('turn-taken', coords)
+  playerOtherClient.socket.emit('ttt-turn-taken', coords)
 };
