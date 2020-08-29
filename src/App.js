@@ -40,6 +40,11 @@ io.on("connection", socket => {
     TTT.Connected(socket, player, allClients);
   });
 
+  socket.on('C4-connect', (player) => {
+    console.log('C4-connected');
+  });
+
+
 
 });
 
