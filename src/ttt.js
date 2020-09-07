@@ -1,12 +1,9 @@
-const App = require('./App');
-
-let allClients = App.allClients;
 const tttLiveClients = [];
 const tttQueue = [];
 
 //Function called on ttt-connection
 
-const Connected = (socket, player, allClients) => {
+const connected = (socket, player) => {
   tttLiveClients.push({socket, player});
   tttQueue.push({socket, player});
   socket.emit('ttt-connected');
@@ -26,22 +23,18 @@ const Connected = (socket, player, allClients) => {
 
 
   socket.on("disconnect", () => {
-    const clientIndex = allClients.findIndex(client => client.id === socket.id);
-    allClients.splice(clientIndex, 1);
     const clientTTTIndex = tttQueue.findIndex(client => client.socket.id === socket.id);
     if (clientTTTIndex !== -1) {
       tttQueue.splice(clientTTTIndex, 1);
     }
     const liveClientTTTIndex = tttLiveClients.findIndex(client => client.socket.id === socket.id);
-    tttQueue.splice(liveClientTTTIndex, 1);
+    tttLiveClients.splice(liveClientTTTIndex, 1);
 
-    console.log(`Disconnected from client, id: ${socket.id}`);
-    console.log(`${allClients.length} client(s) currently connected`);
   });
 
 };
 
-exports.Connected = Connected;
+exports.connected = connected;
 
 
 
