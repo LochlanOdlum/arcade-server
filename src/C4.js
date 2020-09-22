@@ -19,6 +19,13 @@ const connected = (socket, player) => {
     playerOtherClient.socket.emit('C4-turn-taken', x);
   });
 
+  socket.on('C4-play-again', ({playerOther}) => {
+    const playerOtherClient = C4LiveClients.find(
+      client => client.player.id === playerOther.id
+    );
+    playerOtherClient.socket.emit('C4-playing-again');
+  });
+
   socket.on("disconnect", () => {
     const clientC4Index = C4Queue.findIndex(client => client.socket.id === socket.id);
     if (clientC4Index !== -1) {
