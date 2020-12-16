@@ -25,12 +25,10 @@ io.on("connection", socket => {
   allClients.push(socket);
 
   socket.on('ttt-connect', (player) => {
-    console.log('ttt-connected');
     TTT.connected(socket, player);
   });
 
   socket.on('C4-connect', (player) => {
-    console.log('C4-connected');
     C4.connected(socket, player);
   });
 
