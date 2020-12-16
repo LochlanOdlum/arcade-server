@@ -9,7 +9,7 @@ const C4 = require('./C4');
 const app = express();
 
 const server = app.listen(PORT, () => {
-  console.log("Listening to requests on port 3005");
+  console.log(`Listening to requests on port ${PORT}`);
 });
 
 
