@@ -23,8 +23,6 @@ io.origins('*:*');
 
 io.on("connection", socket => {
   allClients.push(socket);
-  console.log(`Connected to client, id: ${socket.id}`);
-  console.log(`${allClients.length} client(s) currently connected`);
 
   socket.on('ttt-connect', (player) => {
     console.log('ttt-connected');
@@ -40,8 +38,6 @@ io.on("connection", socket => {
     const clientIndex = allClients.findIndex(client => client.id === socket.id);
     allClients.splice(clientIndex, 1);
 
-    console.log(`Disconnected from client, id: ${socket.id}`);
-    console.log(`${allClients.length} client(s) currently connected`);
   })
 
 
